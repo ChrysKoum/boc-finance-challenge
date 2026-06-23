@@ -1,0 +1,22 @@
+services:
+  finance-api:
+    build:
+      context: ./python-api
+    ports:
+      - "8000:8000"
+
+  csharp-client:
+    build:
+      context: ./csharp-client
+    environment:
+      FINANCE_API_URL: http://finance-api:8000
+    depends_on:
+      - finance-api
+    profiles:
+      - tools
+
+  java-processor:
+    build:
+      context: ./java-processor
+    profiles:
+      - tools
