@@ -1,0 +1,10 @@
+/assignments
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+bin/
+obj/
+out/
+*.class
+*.log
