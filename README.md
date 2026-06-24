@@ -120,13 +120,13 @@ docker compose --profile tools run --rm csharp-client
 docker compose --profile tools run --rm java-processor
 ```
 
-The local Compose setup exposes Caddy on port `80`. The FastAPI service stays internal to Docker and is not published directly on port `8000`.
+The local Compose setup exposes Caddy on port `8080`. The FastAPI service stays internal to Docker and is not published directly on port `8000`.
 
 Local checks:
 
 ```bash
-curl http://localhost/health
-curl -X POST http://localhost/api/v1/finance/ask \
+curl http://localhost:8080/health
+curl -X POST http://localhost:8080/api/v1/finance/ask \
   -H "Content-Type: application/json" \
   -d "{\"correlationId\":\"local-001\",\"question\":\"How do I save money?\"}"
 ```
@@ -144,7 +144,7 @@ curl -X POST http://localhost:8000/api/v1/finance/ask \
 When using Docker Compose through Caddy, use:
 
 ```bash
-curl -X POST http://localhost/api/v1/finance/ask \
+curl -X POST http://localhost:8080/api/v1/finance/ask \
   -H "Content-Type: application/json" \
   -d "{\"correlationId\":\"12345\",\"question\":\"How do I save money?\"}"
 ```
@@ -220,13 +220,13 @@ docker compose up -d --build caddy
 Open the frontend:
 
 ```text
-http://localhost
+http://localhost:8080
 ```
 
 Test the API through the reverse proxy:
 
 ```bash
-curl http://localhost/health
+curl http://localhost:8080/health
 ```
 
 The frontend API URL can be configured with:
@@ -242,7 +242,7 @@ example.com -> frontend
 api.example.com -> FastAPI API
 ```
 
-Only Caddy should expose public ports `80` and `443`; the FastAPI container remains internal on port `8000`.
+For production, set `HTTP_PORT=80` and `HTTPS_PORT=443` in `.env`. FastAPI remains internal on port `8000`.
 
 Stop the demo:
 
