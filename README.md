@@ -149,11 +149,19 @@ curl -X POST http://localhost/api/v1/finance/ask \
   -d "{\"correlationId\":\"12345\",\"question\":\"How do I save money?\"}"
 ```
 
+Live demo API example:
+
+```bash
+curl -X POST https://api-boc.chryskoum.engineer/api/v1/finance/ask \
+  -H "Content-Type: application/json" \
+  -d "{\"correlationId\":\"live-demo-001\",\"question\":\"How do I save money?\"}"
+```
+
 Example response:
 
 ```json
 {
-  "correlationId": "12345",
+  "correlationId": "live-demo-001",
   "answer": "Start by saving a small amount regularly and build an emergency fund.",
   "blocked": false
 }
@@ -194,6 +202,14 @@ The Python API also logs request activity with the provided `correlationId`, whi
 ## Optional Live Demo
 
 An optional lightweight frontend is included for manually testing the API in a browser. The main challenge scope remains the Python API, C# client, and Java processor.
+
+Live demo:
+
+```text
+Frontend: https://boc.chryskoum.engineer/
+API health: https://api-boc.chryskoum.engineer/health
+API endpoint: https://api-boc.chryskoum.engineer/api/v1/finance/ask
+```
 
 Run the demo through Docker Compose:
 

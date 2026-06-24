@@ -1,10 +1,4 @@
-:80, {$SITE_DOMAIN:localhost}, {$API_DOMAIN:api.localhost} {
-    @apiHost host {$API_DOMAIN:api.localhost}
-
-    handle @apiHost {
-        reverse_proxy finance-api:8000
-    }
-
+:80 {
     handle /api/* {
         reverse_proxy finance-api:8000
     }
@@ -16,4 +10,12 @@
     handle {
         reverse_proxy frontend:80
     }
+}
+
+{$SITE_DOMAIN} {
+    reverse_proxy frontend:80
+}
+
+{$API_DOMAIN} {
+    reverse_proxy finance-api:8000
 }
